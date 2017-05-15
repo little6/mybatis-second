@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- properties配置属性或者定义一个属性文件 -->
+	<properties resource="jdbc.properties">
+		<property name="jdbc.username" value="root"/>
+	</properties>
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!-- <typeAlias type="cn.itcast.mybatis.po.User" alias="user"/> -->
+		<!-- 扫描包的方式（后面不要加*），别名就是类的名称，不区分大小写 -->
+		<package name="cn.itcast.mybatis.po"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<!-- 事务  JDBC(以Connection方式进行事务管理）/MANAGED(交由外在容器管理，例如spring容器通过声明式事务方式管理)-->
+			<transactionManager type="JDBC"></transactionManager>
+			<!-- 连接配置   UNPOOLED/POOLED/JNDI-->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/mybatis"/>
+				<property name="username" value="root"/>
+				<property name="password" value="root"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 加载映射文件 -->
+	<mappers>
+		<!-- resource是基于classpath路径读取的：可以带上包名路径 -->
+		<mapper resource="UserMapping.xml"/>
+		<mapper resource="mapper/UserMapper.xml"/>
+		
+		<!-- 其他方式加载mapper的xml文件 -->
+		<!-- <mapper class="cn.itcast.mybatis.mapper.UserMapper"/> -->
+		<!-- 为了解决配置多个mapper的繁琐问题，建议使用包的扫描 -->
+		<!-- <package name="cn.itcast.mybatis.mapper"/> -->
+	</mappers>
+</configuration>

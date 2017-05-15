@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间,必须是接口的全限命名 -->
+<!--
+	 id 必须和接口中的方法名称保持一致
+	 方法上的参数类型、返回值类型必须和这里定义的类型保持一致
+ -->
+<mapper namespace="cn.itcast.mybatis.mapper.UserMapper">
+	<!-- 根据id查询用户信息 -->
+	<select id="getUserById" parameterType="int" resultType="user">
+		select * from user where id = #{id}
+	</select>
+	
+	<!-- 根据用户名模糊查询 -->
+	<select id="getUserByName" parameterType="String" resultType="cn.itcast.mybatis.po.User">
+		select * from user where username like '%${value}%'
+	</select>
+	
+	<!-- 
+	插入用户信息，参数类型是pojo类型，#{}中的名称就是pojo对象中的属性
+	 -->
+	<insert id="insertUser" parameterType="cn.itcast.mybatis.po.User">
+		insert into user(username,birthday,sex,address) 
+		values(#{username},#{birthday},#{sex},#{address})
+	</insert>
+	
+	<!-- 插入数据并且返回主键字段 -->
+	<insert id="insertUserR" parameterType="cn.itcast.mybatis.po.User">
+		<!-- 
+		keyProperty:对应pojo类的主键属性
+		resultType:对应主键的数据类型
+		order：在insert语句执行之前或之后返回主键
+		
+		如果是手动生成主键字段比如mysql的uuid，可以使用before
+		 -->
+		<selectKey keyProperty="id" resultType="String" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+		insert into user(username,birthday,sex,address) 
+		values(#{username},#{birthday},#{sex},#{address})
+	</insert>
+	<!-- 删除用户信息 -->
+	<delete id="deleteUser" parameterType="int">
+		delete from user where id=#{id}
+	</delete>
+	
+	<!-- 更新用户信息
+		 多个参数:这里使用pojo类型,这里必须是#{username}/#{id}
+	 -->
+	<update id="updateUser" parameterType="cn.itcast.mybatis.po.User">
+		update user set username=#{username} where id=#{id}
+	</update>
+</mapper>
