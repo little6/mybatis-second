@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="cn.itcast.mapping.UserMapping">
 	<!-- 根据id查询用户信息 -->
 	<select id="getUser" parameterType="int" resultType="cn.itcast.mybatis.po.User">
-		select * from user where id = #{id}
+		select * from user where id = ${value}
 	</select>
-	
+	<!-- select * from user where id = #{id}  也是可以的-->
 	<!-- 根据用户名模糊查询 -->
 	<select id="getUserByName" parameterType="String" resultType="cn.itcast.mybatis.po.User">
-		select * from user where username like '%${value}%'
+		select * from user where username like "%"#{value}"%"
 	</select>
 	
 	<!-- 

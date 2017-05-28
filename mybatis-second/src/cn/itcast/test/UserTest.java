@@ -178,7 +178,7 @@ public class UserTest {
         String statement = "cn.itcast.mapping.UserMapping.updateUser";
         User user = new User();
         user.setUsername("乔乔");
-        user.setId("28");
+//        user.setId("28");
         session.update(statement, user);
         session.commit();
         session.close();

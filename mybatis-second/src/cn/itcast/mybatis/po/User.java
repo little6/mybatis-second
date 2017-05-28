@@ -20,7 +20,7 @@ import java.util.Date;
  */
 public class User {
 
-    private String id;
+    private int id;
     /**
      * 用户名
      */
@@ -38,12 +38,20 @@ public class User {
      */
     private String address;
     
-    public String getId() {
+    /*public String getId() {
         return id;
     }
     public void setId(String id) {
         this.id = id;
+    }*/
+    public int getId() {
+        return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     public String getUsername() {
         return username;
     }
